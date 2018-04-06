@@ -153,10 +153,11 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGVlcHJhanAiLCJhIjoiY2luM2ZsNnB5MGJ0N3drbHVkNjdoeXloMCJ9.JvyPDQxD6JGYt68RHSn17A';
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v10',
+        style: 'mapbox://styles/deeprajp/cjfo58w4r2ntb2ro0dget3tuv',
         center: [-74.50, 40], // starting position
         zoom: 9, // starting zoom
         pitch: 45,
+        bearing: -17.6,
         hash: true
     });
 
@@ -199,6 +200,8 @@ map.on('load', function() {
             'fill-extrusion-opacity': .6
         }
     }, labelLayerId);
+
+
 });
 
     // Add zoom and rotation controls to the map.
