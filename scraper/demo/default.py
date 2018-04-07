@@ -21,3 +21,29 @@ if __name__ == '__main__':
         with open('checkpoint.txt', 'r') as file:
             last_id = file.read()
             print("Loaded Checkpoint,", last_id)
+
+    while True:
+        print("Collecting")
+        download_data = []
+
+        if last_id == '':
+            generator = reddit.subreddit(SUBREDDIT).top('week', limit=LIMIT)
+        else:
+            generator = reddit.subreddit(SUBREDDIT).top('week', limit=LIMIT, params={'after': last_id})
+
+        for submission in generator:
+            link = parse_url(submission.url)
+            last_id = submission.fullname
+            if link is not None:
+                download_data.append((link, last_id))
+
+        print("Downloading", len(download_data))
+        download_images(download_data)
+
+        print('Done')
+
+        with open('checkpoint.txt', 'w') as file:
+            file.write(last_id)
+
+        print('Checkpointing')
+        print('')
