@@ -1,0 +1,226 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='WolframDesktop 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       161,          7]
+NotebookDataLength[      7148,        216]
+NotebookOptionsPosition[      6844,        202]
+NotebookOutlinePosition[      7197,        218]
+CellTagsIndexPosition[      7154,        215]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"csv", "=", 
+   RowBox[{"Import", "[", "\"\<\>\"", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"csv", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"csv", "[", 
+      RowBox[{"[", 
+       RowBox[{
+        RowBox[{"2", ";;", 
+         RowBox[{"-", "1"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"3", ",", "6", ",", 
+          RowBox[{"-", "3"}], ",", 
+          RowBox[{"-", "2"}]}], "}"}]}], "]"}], "]"}], ",", 
+     RowBox[{
+      RowBox[{"And", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "\[NotEqual]", "\"\<\>\""}], ",", 
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "4", "]"}], "]"}], "\[NotEqual]", "\"\<\>\""}]}], 
+       "]"}], "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dateParse", "[", "date_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "mon", ",", "day", ",", "yr", ",", "hr", ",", "min", ",", "sec", ",", 
+      "ampm"}], "}"}], ",", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "mon", ",", "day", ",", "yr", ",", "hr", ",", "min", ",", "sec", ",", 
+        "ampm"}], "}"}], "=", 
+      RowBox[{"StringSplit", "[", 
+       RowBox[{"date", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\</\>\"", ",", "\"\< \>\"", ",", "\"\<:\>\""}], "}"}]}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "mon", ",", "day", ",", "yr", ",", "hr", ",", "min", ",", "sec"}], 
+       "}"}], "=", 
+      RowBox[{"ToExpression", "/@", 
+       RowBox[{"{", 
+        RowBox[{
+        "mon", ",", "day", ",", "yr", ",", "hr", ",", "min", ",", "sec"}], 
+        "}"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"DateObject", "[", 
+      RowBox[{"{", 
+       RowBox[{"yr", ",", "mon", ",", "day", ",", 
+        RowBox[{"hr", "+", 
+         RowBox[{"12", 
+          RowBox[{"Boole", "[", 
+           RowBox[{"ampm", "===", "\"\<PM\>\""}], "]"}]}]}], ",", "min", ",", 
+        "sec"}], "}"}], "]"}]}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"Map", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"dateParse", "[", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], ",", 
+        RowBox[{"GeoPosition", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "3", "]"}], "]"}], ",", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "4", "]"}], "]"}]}], "}"}], "]"}]}], "}"}], "&"}], 
+     ",", "csv"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"Reverse", "[", "data", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"baseMap", "=", 
+  RowBox[{"GeoGraphics", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Opacity", "[", "0.5", "]"}], ",", 
+       RowBox[{"Polygon", "[", 
+        RowBox[{"Entity", "[", 
+         RowBox[{"\"\<City\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{
+           "\"\<Chicago\>\"", ",", "\"\<Illinois\>\"", ",", 
+            "\"\<UnitedStates\>\""}], "}"}]}], "]"}], "]"}]}], "}"}], "}"}], 
+    ",", 
+    RowBox[{"GeoRange", "\[Rule]", 
+     RowBox[{"Entity", "[", 
+      RowBox[{"\"\<City\>\"", ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Chicago\>\"", ",", "\"\<Illinois\>\"", ",", 
+         "\"\<UnitedStates\>\""}], "}"}]}], "]"}]}], ",", 
+    RowBox[{"ImageSize", "\[Rule]", "Large"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"map", "[", 
+   RowBox[{"index_", ",", "start_", ",", "end_"}], "]"}], ":=", 
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{"StringJoin", "[", 
+     RowBox[{
+     "\"\<c:\\\\users\\\\arnoudb.wri\\\\chicago\\\\frames\\\\crime-\>\"", ",", 
+      RowBox[{"IntegerString", "[", 
+       RowBox[{"index", ",", "10", ",", "4"}], "]"}], ",", "\"\<.png\>\""}], 
+     "]"}], ",", 
+    RowBox[{"Overlay", "[", 
+     RowBox[{"{", 
+      RowBox[{"baseMap", ",", 
+       RowBox[{"GeoGraphics", "[", 
+        RowBox[{
+         RowBox[{"MapIndexed", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"RGBColor", "[", 
+               RowBox[{
+                RowBox[{"N", "[", 
+                 RowBox[{"1.0", "-", 
+                  RowBox[{
+                   RowBox[{"First", "[", "#2", "]"}], "/", 
+                   RowBox[{"(", 
+                    RowBox[{"end", "-", "start"}], ")"}]}]}], "]"}], ",", "0",
+                 ",", "0"}], "]"}], ",", 
+              RowBox[{"AbsolutePointSize", "[", "4", "]"}], ",", 
+              RowBox[{"Opacity", "[", "0.1", "]"}], ",", 
+              RowBox[{"Point", "[", 
+               RowBox[{"Last", "[", "#1", "]"}], "]"}]}], "}"}], "&"}], ",", 
+           RowBox[{"data", "[", 
+            RowBox[{"[", 
+             RowBox[{"start", ";;", "end"}], "]"}], "]"}]}], "]"}], ",", 
+         RowBox[{"GeoRange", "\[Rule]", 
+          RowBox[{"Entity", "[", 
+           RowBox[{"\"\<City\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{
+             "\"\<Chicago\>\"", ",", "\"\<Illinois\>\"", ",", 
+              "\"\<UnitedStates\>\""}], "}"}]}], "]"}]}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+         RowBox[{"GeoBackground", "\[Rule]", "None"}]}], "]"}]}], "}"}], 
+     "]"}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"map", "[", 
+    RowBox[{"i", ",", 
+     RowBox[{"Round", "[", 
+      RowBox[{"5568545", " ", 
+       RowBox[{"(", 
+        RowBox[{"i", "/", "1500"}], ")"}]}], "]"}], ",", 
+     RowBox[{"Round", "[", 
+      RowBox[{"5568545", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"i", "+", "5"}], ")"}], "/", "1500"}], ")"}]}], "]"}]}], 
+    "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "1", ",", 
+     RowBox[{"1500", "-", "5"}]}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.732070038052997*^9, 3.7320700982437363`*^9}, {
+  3.7320701471247*^9, 
+  3.73207015064349*^9}},ExpressionUUID->"8a81771f-83da-4925-8071-\
+92a84b17d987"]
+},
+WindowSize->{808, 588},
+WindowMargins->{{68, Automatic}, {8, Automatic}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 7, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[561, 20, 6279, 180, 514, "Input",ExpressionUUID->"8a81771f-83da-4925-8071-92a84b17d987"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
