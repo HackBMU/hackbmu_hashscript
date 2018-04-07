@@ -11,3 +11,8 @@ async def download_image(url, id):
             response = await response.read()
             with open(os.path.join(DATA_DIR, id + '.jpg'), 'wb') as f:
                 f.write(response)
+
+def download_images(download_data):
+    loop = asyncio.get_event_loop()
+
+    tasks = []
