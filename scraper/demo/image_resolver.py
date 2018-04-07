@@ -5,5 +5,7 @@ def parse_url(url):
 	elif 'imgur.com' in url:
 		if '/a/' not in url and '/gallery/' not in url:
 			parsed = 'http://i.imgur.com/{id}.jpg'.format(id=url.split('/')[-1])
+	elif 'reddituploads.com' in url:
+		parsed = url
 
 	return parsed
