@@ -15,3 +15,9 @@ if __name__ == '__main__':
 
     last_id = ''
     download_data = []
+
+    # Checkpoint
+    if os.path.isfile('checkpoint.txt'):
+        with open('checkpoint.txt', 'r') as file:
+            last_id = file.read()
+            print("Loaded Checkpoint,", last_id)
